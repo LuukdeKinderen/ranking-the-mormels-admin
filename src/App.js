@@ -19,7 +19,7 @@ function App() {
       var expires = new Date(Date.now() + 1000 * 60 * 60);
       cookies.set('jwt', jwt, { path: '/', expires: expires });
     }
-  }, [jwt])
+  }, [jwt, cookies])
 
 
   var page;
