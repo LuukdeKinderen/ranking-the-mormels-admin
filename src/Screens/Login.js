@@ -1,10 +1,10 @@
-import Input from '../components/Input'
-
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
-export default function Login() {
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+
+export default function Login(props) {
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -25,25 +25,30 @@ export default function Login() {
         };
         fetch(`${process.env.REACT_APP_QUESTION_DOMAIN}/auth`, requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data));
-
-        console.log(`Login: ${login}`);
-        console.log(`Password: ${password}`);
+            .then(data => {
+                if(data.jwt != null){
+                    props.setJwt(data.jwt);
+                }else{
+                    alert("Incorrect username or password");
+                }
+            });
     }
 
     return (
-        <>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicLogin">
-                    <Form.Label>Login</Form.Label>
-                    <Form.Control type="text" placeholder="Enter email" onChange={(e) => setLogin(e.target.value)} />
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
-            </Form>
-        </>
+        <Card>
+            <Card.Body>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formBasicLogin">
+                        <Form.Label>Login</Form.Label>
+                        <Form.Control type="text" placeholder="Enter email" onChange={(e) => setLogin(e.target.value)} />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">Login</Button>
+                </Form>
+            </Card.Body>
+        </Card>
     );
 }
