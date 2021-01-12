@@ -16,7 +16,7 @@ function App() {
     if (jwt !== undefined) {
       const cookies = new Cookies();
       // now + 1 hour then jwt is not valid anymore
-      var expires = new Date(Date.now() + 1000 * 60 * 60);
+      var expires = new Date(Date.now() + 1000 * 60 * 60 * 10);
       cookies.set('jwt', jwt, { path: '/', expires: expires });
     }
   }, [jwt])
