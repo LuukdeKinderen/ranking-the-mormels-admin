@@ -4,12 +4,10 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
-import formatAnnotation from '../Functions/Formatter';
-import { CreateOrUpdate } from '../Functions/Crud'
+import { formatAnnotation } from '../Functions/Formatter';
+import { Cud } from '../Functions/Crud'
 
 export default function Login(props) {
-
-
     const [question, setQuestion] = useState();
     const [firstPersAnnotation, setFirstPersAnnotation] = useState();
     const [lastBestAnnotation, setLastBestAnnotation] = useState();
@@ -18,12 +16,14 @@ export default function Login(props) {
         e.preventDefault();
         if (isValidAnnotation(firstPersAnnotation) && isValidAnnotation(lastBestAnnotation)) {
             var newQuesiton;
+            var method;
             if (props.question === undefined) {
                 newQuesiton = {
                     "question": question,
                     "firstAnnotation": firstPersAnnotation,
                     "lastBestAnnotation": lastBestAnnotation
                 }
+                method = "POST"
             } else {
                 newQuesiton = {
                     "id": props.question.id,
@@ -31,9 +31,10 @@ export default function Login(props) {
                     "firstAnnotation": firstPersAnnotation,
                     "lastBestAnnotation": lastBestAnnotation
                 }
+                method = "PUT"
             }
 
-            CreateOrUpdate(newQuesiton)
+            Cud(newQuesiton, method)
                 .then(response => {
                     if (response.status === 200) {
                         props.setEditQuestion(undefined);

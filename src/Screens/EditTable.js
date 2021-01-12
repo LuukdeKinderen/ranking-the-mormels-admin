@@ -17,8 +17,8 @@ import { BsFileEarmarkPlus } from "react-icons/bs";
 
 import QuestionForm from '../components/QuestionForm';
 
-import { remove as dbRemove} from '../Functions/Crud'
-import formatAnnotation from '../Functions/Formatter';
+import { Cud } from '../Functions/Crud'
+import { formatAnnotation, formatedUrl } from '../Functions/Formatter';
 
 
 export default function EditTalbe(props) {
@@ -36,11 +36,21 @@ export default function EditTalbe(props) {
 
     useEffect(() => {
         if (loading === true) {
-            fetch(`${process.env.REACT_APP_QUESTION_DOMAIN}/question/all`)
+            fetch(formatedUrl('/question/all'))
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response;
+                })
                 .then(response => response.json())
                 .then(data => {
                     setQuestions(data);
                     setLoading(false);
+                }).catch(function (error) {
+                    setLoading(false);
+                    alert("Something went wrong, try again?");
+                    setLoading(true);
                 });
         }
     }, [loading])
@@ -58,7 +68,7 @@ export default function EditTalbe(props) {
     }
 
     function remove(question) {
-        dbRemove(question)
+        Cud(question, "DELETE")
             .then(response => {
                 if (response.status === 200) {
                     setLoading(true);
@@ -71,6 +81,7 @@ export default function EditTalbe(props) {
         return (
             <Card>
                 <Card.Body>
+                    <h1>Question Table</h1>
                     <Row>
                         <Col>
                             <Form.Label>Test name</Form.Label>
@@ -160,6 +171,7 @@ export default function EditTalbe(props) {
         return (
             <Card>
                 <Card.Body>
+                    <h1>Loading questions</h1>
                     <Spinner animation="border" variant="primary" />
                 </Card.Body>
             </Card>
