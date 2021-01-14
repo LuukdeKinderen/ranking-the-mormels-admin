@@ -7,7 +7,6 @@ import Alert from 'react-bootstrap/Alert';
 
 import { formatAnnotation } from '../Functions/Formatter';
 import { Cud } from '../Functions/Crud'
-import { Container } from 'react-bootstrap';
 
 export default function Login(props) {
     const [question, setQuestion] = useState();
