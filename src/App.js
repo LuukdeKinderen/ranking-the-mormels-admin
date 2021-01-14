@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 
 import Login from './Screens/Login'
-import EditTable from './Screens/EditTable'
+import EditTable from './Screens/EditPage'
 import NavBar from './components/NavBar'
 
 function App() {

@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 import { formatAnnotation } from '../Functions/Formatter';
 import { Cud } from '../Functions/Crud'
+import { Container } from 'react-bootstrap';
 
 export default function Login(props) {
     const [question, setQuestion] = useState();
@@ -36,18 +38,33 @@ export default function Login(props) {
 
             Cud(newQuesiton, method)
                 .then(response => {
-                    if (response.status === 200) {
-                        props.setEditQuestion(undefined);
-                        props.setForm(false);
-                        props.setLoading(true);
+                    if (!response.ok) {
+                        throw Error(response.statusText);
                     }
+                    return response;
+                })
+                .then(response => {
+                    if (response.status === 200) {
+                        props.goBack();
+                    }
+                }).catch(function (error) {
+                    props.setAlert(
+                        <Alert variant={'danger'}>
+                            Something went wrong
+                          </Alert>
+                    )
                 });
-
-
         } else {
-            alert("Please check if all values are valid")
+            props.setAlert(
+                <Alert variant={'danger'}>
+                    Please check if all values are valid
+                  </Alert>
+            )
         }
+    }
 
+    function cancel(){
+        props.goBack();
     }
 
     useEffect(() => {
@@ -139,8 +156,12 @@ export default function Login(props) {
                         />
                         {exampleText(lastBestAnnotation)}
                     </Form.Group>
-                    <Button variant="primary" type="submit">Save</Button>
+                    <Button variant="primary" type="submit">Save</Button>{' '}
+                    <Button variant="secondary" onClick={() => cancel()}>Cancel</Button>
+
                 </Form>
+
+
             </Card.Body>
         </Card >
     );

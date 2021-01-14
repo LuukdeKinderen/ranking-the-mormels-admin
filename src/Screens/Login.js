@@ -52,9 +52,7 @@ export default function Login(props) {
                 }
             }).catch(function (error) {
                 setAlert(
-                    <Alert variant={'danger'}>
-                        Incorrect username or password
-                          </Alert>
+                    <Alert variant={'danger'}>Incorrect username or password</Alert>
                 )
             });
     }
