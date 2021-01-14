@@ -31,16 +31,16 @@ export default function QuestionTable(props) {
                     {(props.questions || []).map(q => (
                         //console.log(q);
                         <tr key={q.id}>
-                            <td>{q.id}</td>
+                            <td data-testid="question-id">{q.id}</td>
                             <td>{q.question}</td>
                             <td>{formatAnnotation(q.firstAnnotation, props.testName, props.testDrinkCount)}</td>
                             <td>{formatAnnotation(q.lastBestAnnotation, props.testName, props.testDrinkCount)}</td>
                             <td>
                                 <Container>
-                                    <Button style={{ marginBottom: '15px' }} variant="warning" onClick={() => props.edit(q)}>
+                                    <Button data-testid="edit-question" style={{ marginBottom: '15px' }} variant="warning" onClick={() => props.edit(q)}>
                                         <BsPencil />
                                     </Button>
-                                    <Button variant="danger" onClick={() => props.remove(q)}>
+                                    <Button data-testid="delete-question" variant="danger" onClick={() => props.remove(q)}>
                                         <BsTrash />
                                     </Button>
                                 </Container>
@@ -57,7 +57,7 @@ export default function QuestionTable(props) {
                     Create a new Question
             </Tooltip>}
             >
-                <Button variant="primary" onClick={() => props.create()}>
+                <Button data-testid="new-question" variant="primary" onClick={() => props.create()}>
                     <BsFileEarmarkPlus />
                 </Button>
             </OverlayTrigger>

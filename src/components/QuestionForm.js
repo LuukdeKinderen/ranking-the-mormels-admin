@@ -62,7 +62,7 @@ export default function Login(props) {
         }
     }
 
-    function cancel(){
+    function cancel() {
         props.goBack();
     }
 
@@ -94,7 +94,7 @@ export default function Login(props) {
             )
         } else {
             return (
-                <Form.Text className="text-danger">
+                <Form.Text data-testid="annotation-error" className="text-danger">
                     Annotation must contian <b>%s</b> and <b>%d</b>!
                 </Form.Text>
             )
@@ -102,7 +102,7 @@ export default function Login(props) {
     }
 
     return (
-        <Card>
+        <Card data-testid="question-form-page">
             <Card.Body>
                 <Form onSubmit={(e) => save(e)}>
                     <Form.Group >
@@ -116,6 +116,7 @@ export default function Login(props) {
                     <Form.Group >
                         <Form.Label>Question</Form.Label>
                         <Form.Control
+                            data-testid="question-form-question"
                             as="textarea"
                             rows={1}
                             type="text"
@@ -130,6 +131,7 @@ export default function Login(props) {
                     <Form.Group >
                         <Form.Label>First person annotation</Form.Label>
                         <Form.Control
+                            data-testid="question-form-fpa"
                             as="textarea"
                             rows={3}
                             type="text"
@@ -144,6 +146,7 @@ export default function Login(props) {
                     <Form.Group >
                         <Form.Label>Last best annotation</Form.Label>
                         <Form.Control
+                            data-testid="question-form-lba"
                             as="textarea"
                             rows={3}
                             type="text"

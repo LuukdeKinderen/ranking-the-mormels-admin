@@ -43,9 +43,10 @@ export default function EditPage(props) {
                     setLoading(false);
                     setAlert(undefined);
                 }).catch((error) => {
-                    setLoading(false);
-                    alert("Something went wrong, try again?");
-                    setLoading(true);
+                    console.log(error)
+                    //setLoading(false);
+                    //alert("Something went wrong, try again?");
+                    //setLoading(true);
                 });
         }
     }, [loading])
@@ -72,6 +73,7 @@ export default function EditPage(props) {
             })
             .then(response => {
                 if (response.status === 200) {
+                    console.log("test");
                     setLoading(true);
                     setAlert(undefined);
                 }
@@ -91,7 +93,7 @@ export default function EditPage(props) {
 
     if (!loading) {
         return (
-            <Card>
+            <Card data-testid="edit-page" >
                 <Card.Body>
                     <h1>Edit page</h1>
                     <Row>
@@ -142,7 +144,7 @@ export default function EditPage(props) {
     }
     else {
         return (
-            <Card>
+            <Card data-testid="edit-page" >
                 <Card.Body>
                     <h1>Loading questions</h1>
                     <Spinner animation="border" variant="primary" />
