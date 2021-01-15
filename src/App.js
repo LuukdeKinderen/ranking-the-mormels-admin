@@ -9,7 +9,15 @@ import Login from './Screens/Login'
 import EditTable from './Screens/EditPage'
 import NavBar from './components/NavBar'
 
+
+
 function App() {
+
+  window.addEventListener("beforeunload", (ev) => {
+    ev.preventDefault();
+    new Cookies().remove('jwt');
+  });
+
   const [jwt, setJwt] = useState(new Cookies().get("jwt") || undefined);
 
   useEffect(() => {
